@@ -15,7 +15,11 @@ module Redmine
 
       class << self
         def highlight_by_filename(text, filename)
-          lexer = ::Rouge::Lexer.guess_by_filename(filename)
+          if filename.end_with?('.m')
+            lexer = ::Rouge::Lexers::ObjectiveC
+          else
+            lexer = ::Rouge::Lexer.guess_by_filename(filename)
+          end
           highlight(text, lexer, true)
         end
 
